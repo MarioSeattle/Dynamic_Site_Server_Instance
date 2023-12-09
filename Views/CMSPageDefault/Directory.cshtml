@@ -1,0 +1,28 @@
+﻿@model Ingeniux.Runtime.CMSPageRequest
+@using Ingeniux.Runtime
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ICMSElement Title = Model.Element("Title");
+    var BioIndex = Model.GetNavigation("BioIndex");
+    var BioPages = BioIndex.GetLinkItems();
+
+}
+
+<h1>@Title.Value</h1>
+
+<ul>
+    @foreach(var Biopage in BioPages)
+    {
+
+    <li>
+        <img src="@Biopage.GetAttributeValue("Pic")" alt="" /><br />
+        <p>@Biopage.GetAttributeValue("BioName")</p>
+        <p>@Biopage.GetAttributeValue("Job")</p>
+        <a href="@Biopage.URL">View Profile</a>
+    </li>
+
+    }
+</ul>

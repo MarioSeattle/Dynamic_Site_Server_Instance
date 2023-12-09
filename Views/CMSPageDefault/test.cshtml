@@ -1,0 +1,73 @@
+﻿@model Ingeniux.Runtime.CMSPageRequest
+@using Ingeniux.Runtime
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ICMSElement SomeText = Model.Element("SomeText");
+    ICMSElement Text2 = Model.Element("Text2");
+    ICMSElement pic = Model.Element("pic");
+    ICMSElement SomeXHTML = Model.Element("SomeXHTML");
+    ICMSLinkElement someLink = Model.GetLinkItem("someLink");
+    ICMSElement testComp = Model.Element("TestComponent", "testComp");
+    ICMSElement Slideshow = Model.Element("Slideshow", "Slideshow");
+
+
+}
+
+@if (SomeText.Value != "")
+{
+    <h1>@SomeText.Value</h1>
+}
+
+<h2>@Text2.Value</h2>
+
+<div>
+    @Html.Raw(SomeXHTML.Value)
+</div>
+
+<img src="@pic.Value" alt="@pic.GetAttributeValue("AlternateText")" />
+
+@if (someLink != null)
+{
+    <div>
+        <a href="@someLink.URL">@someLink.LinkName</a> <span>@someLink.GetAttributeValue("Schema")</span>
+        <p>@someLink.GetAttributeValue("Description")</p>
+        <img src="@someLink.GetAttributeValue("Thumbnail")" />
+        <p>@someLink.GetAttributeValue("Title")</p>
+
+    </div>
+}
+
+@if (testComp != null)
+{
+    <div>
+
+        <p>@testComp.GetElementValue("Heading")</p>
+
+
+        <p>@Html.Raw(testComp.GetElementValue("Copy"))</p>
+
+
+    </div>
+
+}
+
+@if (Slideshow != null)
+
+{
+
+    ICMSElement image = Slideshow.Element("ImageEx");
+
+   <img src="@image.Value" alt="@image.GetAttributeValue("AlternateText")" />
+
+   <p>Test</p>
+
+}
+
+
+
+
+
+
+

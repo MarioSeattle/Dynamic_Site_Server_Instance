@@ -1,0 +1,69 @@
+﻿@model Ingeniux.Runtime.CMSPageRequest
+@using Ingeniux.Runtime
+
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ICMSElement Header = Model.Element("Header");
+    ICMSElement SubHeader = Model.Element("SubHeader");
+    ICMSElement SomeContent = Model.Element("SomeContent");
+    ICMSElement Banner = Model.Element("Banner");
+    ICMSLinkElement SomeLink = Model.GetLinkItem("SomeLink");
+    ICMSElement CTA = Model.Element("CTA");
+    
+
+}
+
+@if (Header.Value != "")
+{
+    <h1>@Header.Value</h1>
+}
+
+<h2>@SubHeader.Value</h2>
+
+<div>
+    @Html.Raw(SomeContent.Value)
+</div>
+
+<img src="@Banner.Value" alt="@Banner.GetAttributeValue("Banner")" />
+
+
+@if (SomeLink != null)
+{
+    <div>
+        <a href="@SomeLink.URL">@SomeLink.LinkName</a> <span>@SomeLink.GetAttributeValue("Schema")</span>
+        <p>@SomeLink.GetAttributeValue("Description")</p>
+        <img src="@SomeLink.GetAttributeValue("Thumbnail")" />
+        <p>@SomeLink.GetAttributeValue("Header")</p>
+
+    </div>
+}
+
+@if (CTA != null)
+{
+    ICMSLinkElement Link = CTA.GetLinkItem("Action");
+    ICMSLinkElement DualLink = CTA.GetLinkItem("DualAction");
+
+
+    <div>
+
+        <p>@CTA.GetElementValue("Heading")</p>
+
+
+        <p>@Html.Raw(CTA.GetElementValue("Description"))</p>
+
+        <a href="@Link.URL">@Link.LinkName</a> 
+        <a href="@DualLink.URL">@DualLink.LinkName</a> 
+
+
+
+    </div>
+
+}
+
+
+
+
+
+

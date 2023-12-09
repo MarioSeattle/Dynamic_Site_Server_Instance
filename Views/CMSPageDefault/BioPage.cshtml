@@ -1,0 +1,47 @@
+﻿@model Ingeniux.Runtime.CMSPageRequest
+@using Ingeniux.Runtime
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    ICMSElement BioName = Model.Element("BioName");
+    ICMSElement Job = Model.Element("Job");
+    ICMSElement Pic = Model.Element("Pic");
+    ICMSElement Bio = Model.Element("Bio");
+
+    var Books = Model.GetNavigation("Books",NavigationElementType.LinkSet);
+
+    var BookPages = Books.GetLinkItems();
+
+}
+
+
+<h1>@BioName.Value</h1>
+<h2>@Job.Value</h2>
+
+<img src="@Pic.Value" alt="" />
+
+<div>
+
+    @Html.Raw(Bio.Value)
+
+</div>
+
+<div>
+    <h2>Favorite Books</h2>
+    <ul>
+        @foreach (var Book in BookPages)
+        {
+            <li>
+                <a href="@Book.URL">@Book.GetAttributeValue("Title")</a>
+            </li>
+
+        }
+        </ul>
+
+</div>
+
+
+
+
